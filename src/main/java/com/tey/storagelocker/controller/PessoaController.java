@@ -2,6 +2,7 @@ package com.tey.storagelocker.controller;
 
 import com.tey.storagelocker.model.Pessoa;
 import com.tey.storagelocker.repository.PessoaRepository;
+import com.tey.storagelocker.services.PessoaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -19,14 +20,17 @@ public class PessoaController {
     @Autowired
     PessoaRepository pessoaRepository;
 
+    @Autowired
+    PessoaService pessoaService;
+
     @GetMapping("/todas")
-    public List<Pessoa> todas() {
+    public List<Pessoa> buscarToras() {
         return pessoaRepository.findAll();
     }
 
-    @PostMapping("/novo")
-    public ResponseEntity<Pessoa> novo (@RequestBody Pessoa pessoa) {
-        return ResponseEntity.ok(pessoaRepository.save(pessoa));
+    @PostMapping("/nova")
+    public ResponseEntity<Pessoa> nova (@RequestBody Pessoa pessoa) {
+        return pessoaService.nova(pessoa);
     }
 
     @PutMapping("/editar/{id}")
