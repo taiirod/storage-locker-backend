@@ -5,6 +5,7 @@ import com.tey.storagelocker.repository.PessoaRepository;
 import com.tey.storagelocker.utils.ValidaCPF;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,10 @@ public class PessoaService {
             if (pessoaRepository.findByCpf(pessoa.getCpf()) == null) {
                 ResponseEntity.ok(pessoaRepository.save(pessoa));
             } else {
-                System.out.println("CPF já cadastrado");
+                return new ResponseEntity("CPF já cadastrado", HttpStatus.BAD_REQUEST);
             }
         } else {
-            System.out.println("CPF inválido");
+            return new ResponseEntity("CPF Inválido", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok(pessoa);
     }
