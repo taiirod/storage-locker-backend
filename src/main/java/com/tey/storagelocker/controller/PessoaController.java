@@ -35,16 +35,26 @@ public class PessoaController {
         return pessoaRepository.findAllByAtivo(true, pageable);
     }
 
+    @GetMapping("/{idPessoa}")
+    public ResponseEntity<Pessoa> buscarPorId (@PathVariable Long idPessoa){
+        return ResponseEntity.ok(pessoaRepository.getOne(idPessoa));
+    }
+
     @PostMapping("/nova")
-    public ResponseEntity<Pessoa> nova (@RequestBody Pessoa pessoa) {
+    public ResponseEntity<?> nova (@RequestBody Pessoa pessoa) {
         return pessoaService.nova(pessoa);
     }
 
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<Pessoa> editar (@PathVariable Long id, @RequestBody Pessoa pessoa) {
-        Pessoa pessoaDoBanco = pessoaRepository.getOne(id);
-        BeanUtils.copyProperties(pessoa, pessoaDoBanco, "id");
-        return ResponseEntity.ok(pessoaRepository.save(pessoaDoBanco));
+    @PutMapping("/editar/{idPessoa}")
+    public ResponseEntity<?> editar (@PathVariable Long idPessoa, @RequestBody Pessoa pessoa) {
+        return pessoaService.editar(idPessoa, pessoa);
+    }
+
+    @DeleteMapping("/alterar-status/{idPessoa}")
+    public ResponseEntity<Pessoa> desativar (@PathVariable Long idPessoa, @RequestBody boolean ativo) {
+        Pessoa p = pessoaRepository.getOne(idPessoa);
+        p.setAtivo(ativo);
+        return ResponseEntity.ok(pessoaRepository.save(p));
     }
 
 }

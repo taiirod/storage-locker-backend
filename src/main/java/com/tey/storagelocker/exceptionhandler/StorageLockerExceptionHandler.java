@@ -33,6 +33,7 @@ public class StorageLockerExceptionHandler extends ResponseEntityExceptionHandle
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
 
+
     public static class Erro {
 
         private String mensagemUsuario;
