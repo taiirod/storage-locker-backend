@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,8 +26,13 @@ public class PessoaController {
     PessoaService pessoaService;
 
     @GetMapping("/todas")
-    public List<Pessoa> buscarToras() {
-        return pessoaRepository.findAll();
+    public Page<Pessoa> buscarTodas(Pageable pageable) {
+        return pessoaRepository.findAll(pageable);
+    }
+
+    @GetMapping("/ativos")
+    public Page<Pessoa> buscarTodasAtivas (Pageable pageable) {
+        return pessoaRepository.findAllByAtivo(true, pageable);
     }
 
     @PostMapping("/nova")

@@ -18,17 +18,16 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
 
-    public ResponseEntity<Pessoa> nova (Pessoa pessoa) {
-        if (validaCPF.isCPF(pessoa.getCpf())){
+    public ResponseEntity<Pessoa> nova(Pessoa pessoa) {
+        if (validaCPF.isCPF(pessoa.getCpf())) {
             if (pessoaRepository.findByCpf(pessoa.getCpf()) == null) {
-                ResponseEntity.ok(pessoaRepository.save(pessoa));
+                return ResponseEntity.ok(pessoaRepository.save(pessoa));
             } else {
-                return new ResponseEntity("CPF já cadastrado", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("CPF já cadastrado.", HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity("CPF Inválido", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("CPF Inválido.", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(pessoa);
     }
 
 
