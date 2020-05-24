@@ -1,17 +1,38 @@
 package com.tey.storagelocker.model;
 
-import javax.persistence.Embeddable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Embeddable
-public class Endereco {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity(name = "endereco")
+public class Endereco implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String cep;
-    private String logradouro;
+    private String rua;
     private Long numero;
     private String complemento;
     private String bairro;
-    private String localidade;
-    private String uf;
+    private String cidade;
+    private String estado;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getCep() {
         return cep;
@@ -21,12 +42,12 @@ public class Endereco {
         this.cep = cep;
     }
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getRua() {
+        return rua;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setRua(String rua) {
+        this.rua = rua;
     }
 
     public Long getNumero() {
@@ -53,19 +74,27 @@ public class Endereco {
         this.bairro = bairro;
     }
 
-    public String getLocalidade() {
-        return localidade;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setLocalidade(String localidade) {
-        this.localidade = localidade;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public String getUf() {
-        return uf;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
     }
 }

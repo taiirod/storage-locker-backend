@@ -1,23 +1,35 @@
 package com.tey.storagelocker.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.io.Serializable;
+import java.util.List;
 
-@Entity(name = "PESSOA")
-public class Pessoa {
+@Entity(name = "pessoa")
+public class Pessoa implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private String sobrenome;
+
+    @Column(name = "nome_completo")
+    private String nomeCompleto;
+
     private String cpf;
-    @Embedded
-    private Endereco endereco;
     private String telefone;
+
+    @Pattern(regexp = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     private String email;
     private Boolean ativo;
 
+    @OneToMany(mappedBy = "pessoa")
+    @JsonManagedReference
+    private List<Endereco> endereco;
 
     public Long getId() {
         return id;
@@ -27,20 +39,12 @@ public class Pessoa {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCompleto() {
+        return nomeCompleto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 
     public String getCpf() {
@@ -49,14 +53,6 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
     }
 
     public String getTelefone() {
@@ -81,5 +77,13 @@ public class Pessoa {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public List<Endereco> getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(List<Endereco> endereco) {
+        this.endereco = endereco;
     }
 }

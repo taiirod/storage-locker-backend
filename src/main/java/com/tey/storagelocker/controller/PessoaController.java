@@ -41,7 +41,7 @@ public class PessoaController {
     }
 
     @PostMapping("/nova")
-    public ResponseEntity<?> nova (@RequestBody Pessoa pessoa) {
+    public ResponseEntity<?> nova (@RequestBody Pessoa pessoa) throws Exception {
         return pessoaService.nova(pessoa);
     }
 

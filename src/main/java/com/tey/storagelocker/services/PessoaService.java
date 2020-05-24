@@ -1,6 +1,7 @@
 package com.tey.storagelocker.services;
 
 import com.tey.storagelocker.model.Pessoa;
+import com.tey.storagelocker.repository.EnderecoRepository;
 import com.tey.storagelocker.repository.PessoaRepository;
 import com.tey.storagelocker.utils.ValidaCPF;
 import org.springframework.beans.BeanUtils;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,10 +22,16 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
 
-    public ResponseEntity<?> nova(Pessoa pessoa) {
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
+    @Transactional
+    public ResponseEntity<?> nova(Pessoa pessoa) throws Exception {
         ResponseEntity<?> responseEntity = verifiCpf(pessoa);
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
-            return ResponseEntity.ok(pessoaRepository.save(pessoa));
+            pessoa = pessoaRepository.save(pessoa);
+            enderecoRepository.saveAll(pessoa.getEndereco());
+            return ResponseEntity.ok(pessoa);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseEntity.getBody());
     }
@@ -39,11 +47,11 @@ public class PessoaService {
 
     }
 
-    public ResponseEntity<?> verifiCpf(Pessoa pessoa) {
+    public ResponseEntity<?> verifiCpf(Pessoa pessoa) throws Exception {
         if (!validaCPF.isCPF(pessoa.getCpf())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF Inválido.");
+            throw new Exception("CPF Inválido.");
         } else if (!(pessoaRepository.findByCpf(pessoa.getCpf()) == null)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CPF já cadastrado.");
+            throw new Exception("CPF já cadastrado.");
         }
         return ResponseEntity.ok().body(pessoa);
     }
