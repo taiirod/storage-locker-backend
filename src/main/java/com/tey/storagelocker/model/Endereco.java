@@ -23,8 +23,8 @@ public class Endereco implements Serializable {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     public Integer getId() {
         return id;
@@ -90,11 +90,11 @@ public class Endereco implements Serializable {
         this.estado = estado;
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

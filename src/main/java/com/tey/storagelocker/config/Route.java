@@ -17,7 +17,7 @@ public class Route implements Filter {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         String requestURI = servletRequest.getRequestURI();
         String contextPath = servletRequest.getContextPath();
-        if(requestURI.equals(contextPath) &&
+        if (requestURI.equals(contextPath) &&
                 requestURI.matches(API_PATTERN) && // Check if the requested URL is not a controller (/api/**)
                 requestURI.matches(POINT_EXCLUSION_PATTERN) // Check if there are no "." in requested URL
         ) {

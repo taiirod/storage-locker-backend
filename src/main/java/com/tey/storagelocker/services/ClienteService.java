@@ -1,8 +1,8 @@
 package com.tey.storagelocker.services;
 
-import com.tey.storagelocker.model.Pessoa;
+import com.tey.storagelocker.model.Cliente;
+import com.tey.storagelocker.repository.ClienteRepository;
 import com.tey.storagelocker.repository.EnderecoRepository;
-import com.tey.storagelocker.repository.PessoaRepository;
 import com.tey.storagelocker.utils.ValidaCPF;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +11,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
-public class PessoaService {
+public class ClienteService {
 
     @Autowired
     ValidaCPF validaCPF;
 
     @Autowired
-    PessoaRepository pessoaRepository;
+    ClienteRepository pessoaRepository;
 
     @Autowired
     EnderecoRepository enderecoRepository;
 
     @Transactional
-    public ResponseEntity<?> nova(Pessoa pessoa) throws Exception {
+    public ResponseEntity<?> nova(Cliente pessoa) throws Exception {
         ResponseEntity<?> responseEntity = verifiCpf(pessoa);
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             pessoa = pessoaRepository.save(pessoa);
@@ -37,17 +35,17 @@ public class PessoaService {
     }
 
 
-    public ResponseEntity<?> editar(Long idPessoa, Pessoa pessoa) {
-        Pessoa pessoaSalva = pessoaRepository.getOne(idPessoa);
+    public ResponseEntity<?> editar(Long idCliente, Cliente pessoa) {
+        Cliente pessoaSalva = pessoaRepository.getOne(idCliente);
         if (pessoaSalva.getId() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Pessoa não encontrada.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cliente não encontrada.");
         }
         BeanUtils.copyProperties(pessoa, pessoaSalva, "id", "cpf");
         return ResponseEntity.ok(pessoaRepository.save(pessoaSalva));
 
     }
 
-    public ResponseEntity<?> verifiCpf(Pessoa pessoa) throws Exception {
+    public ResponseEntity<?> verifiCpf(Cliente pessoa) throws Exception {
         if (!validaCPF.isCPF(pessoa.getCpf())) {
             throw new Exception("CPF Inválido.");
         } else if (!(pessoaRepository.findByCpf(pessoa.getCpf()) == null)) {

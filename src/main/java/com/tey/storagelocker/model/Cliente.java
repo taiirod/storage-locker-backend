@@ -2,14 +2,13 @@ package com.tey.storagelocker.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity(name = "pessoa")
-public class Pessoa implements Serializable {
+@Entity(name = "cliente")
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class Pessoa implements Serializable {
     private String email;
     private Boolean ativo;
 
-    @OneToMany(mappedBy = "pessoa")
+    @OneToMany(mappedBy = "cliente")
     @JsonManagedReference
     private List<Endereco> endereco;
 

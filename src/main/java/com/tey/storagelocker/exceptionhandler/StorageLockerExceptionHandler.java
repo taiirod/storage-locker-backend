@@ -28,7 +28,7 @@ public class StorageLockerExceptionHandler extends ResponseEntityExceptionHandle
 
         String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
         String mensagemDesenvolvedor = ex.getCause() != null ? ex.getCause().toString() : ex.toString();
-        List<Erro> erros = Arrays.asList(new Erro (mensagemUsuario, mensagemDesenvolvedor));
+        List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 
         return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
     }
@@ -36,9 +36,9 @@ public class StorageLockerExceptionHandler extends ResponseEntityExceptionHandle
 
     public static class Erro {
 
-        private String mensagemUsuario;
+        private final String mensagemUsuario;
 
-        private String mensagemDesenvolvedor;
+        private final String mensagemDesenvolvedor;
 
         public Erro(String mensagemUsuario, String mensagemDesenvolvedor) {
             this.mensagemUsuario = mensagemUsuario;
