@@ -30,6 +30,11 @@ public class Cliente implements Serializable {
     @JsonManagedReference
     private List<Endereco> endereco;
 
+    @OneToMany(mappedBy = "cliente")
+    @JsonManagedReference
+    private List<StorageLocker> storageLockers;
+
+
     public Long getId() {
         return id;
     }

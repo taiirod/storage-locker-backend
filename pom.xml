@@ -86,74 +86,74 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+             <plugin>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
 
-            <!--<plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.7.6</version>
+            <!-- <plugin>
+                 <groupId>com.github.eirslett</groupId>
+                 <artifactId>frontend-maven-plugin</artifactId>
+                 <version>1.7.6</version>
 
-                <configuration>
-                    <workingDirectory>/home/tainan/Documentos/storage-locker/storage-locker-frontend</workingDirectory>
-                </configuration>
+                 <configuration>
+                     <workingDirectory>C:\Users\Tainan\Documents\Facul\DSO2\StoreLocker\storage-locker-frontend</workingDirectory>
+                 </configuration>
 
-                <executions>
+                 <executions>
 
-                    <execution>
-                        <id>install-node-and-npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <configuration>
-                            <nodeVersion>v12.16.1</nodeVersion>
-                        </configuration>
-                    </execution>
+                     <execution>
+                         <id>install-node-and-npm</id>
+                         <goals>
+                             <goal>install-node-and-npm</goal>
+                         </goals>
+                         <configuration>
+                             <nodeVersion>v12.16.1</nodeVersion>
+                         </configuration>
+                     </execution>
 
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>install</arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>npm build</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run prod</arguments>
-                        </configuration>
-                        <phase>generate-resources</phase>
-                    </execution>
-                </executions>
-            </plugin>
+                     <execution>
+                         <id>npm install</id>
+                         <goals>
+                             <goal>npm</goal>
+                         </goals>
+                         <configuration>
+                             <arguments>install</arguments>
+                         </configuration>
+                     </execution>
+                     <execution>
+                         <id>npm build</id>
+                         <goals>
+                             <goal>npm</goal>
+                         </goals>
+                         <configuration>
+                             <arguments>run prod</arguments>
+                         </configuration>
+                         <phase>generate-resources</phase>
+                     </execution>
+                 </executions>
+             </plugin>
 
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>src/main/resources/static</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>/home/tainan/Documentos/storage-locker/storage-locker-frontend/dist/storage-locker-frontend</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
+             <plugin>
+                 <artifactId>maven-resources-plugin</artifactId>
+                 <executions>
+                     <execution>
+                         <id>copy-resources</id>
+                         <phase>validate</phase>
+                         <goals>
+                             <goal>copy-resources</goal>
+                         </goals>
+                         <configuration>
+                             <outputDirectory>C:\Users\Tainan\Documents\Facul\DSO2\StoreLocker\storage-locker-backend\src\main\resources\static</outputDirectory>
+                             <resources>
+                                 <resource>
+                                     <directory>C:\Users\Tainan\Documents\Facul\DSO2\StoreLocker\storage-locker-frontend\dist\storage-locker-frontend</directory>
+                                 </resource>
+                             </resources>
+                         </configuration>
+                     </execution>
+                 </executions>
+             </plugin>-->
         </plugins>
     </build>
 

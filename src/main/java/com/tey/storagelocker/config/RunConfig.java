@@ -15,7 +15,7 @@ public class RunConfig {
     @EventListener({ApplicationReadyEvent.class})
     void applicationReadyEvent() {
         System.out.println("Aplicação iniciada... Abrindo navegador...");
-        browse("http://localhost:9090/pessoa");
+        browse("http://localhost:9090/login");
     }
 
     public static void browse(String url) {
